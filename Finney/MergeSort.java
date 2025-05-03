@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PhaseSeparatedMergeSort {
+public class MergeSort {
     public static void main(String[] args) {
         List<Integer> numbers = new ArrayList<>(Arrays.asList(
             3, 7, 14, 7, 13, 2, 16, 13, 15, 2

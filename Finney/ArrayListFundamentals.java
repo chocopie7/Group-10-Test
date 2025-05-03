@@ -6,10 +6,7 @@ import java.util.ArrayList;
 public class ArrayListFundamentals {
 
     public static void main(String[] args) {
-        // 7.1 Introduction - ArrayList vs Array
-        System.out.println("=== ArrayList Fundamentals ===");
-        System.out.println("Array: Fixed size, basic type/object storage");
-        System.out.println("ArrayList: Dynamic size, object storage only, built-in methods\n");
+   
         
         // Create ArrayList (dynamically sized)
         ArrayList<String> cities = new ArrayList<>();
@@ -42,6 +39,7 @@ public class ArrayListFundamentals {
         cities.add("Rome");
         cities.add("Amsterdam");
         System.out.println("New capacity after additions: " + cities.size());
+        System.out.println("Final contents: " + cities); 
     }
 
     private static void printList(String message, ArrayList<String> list) {

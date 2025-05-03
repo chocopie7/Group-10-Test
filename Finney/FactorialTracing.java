@@ -12,10 +12,10 @@ public class FactorialTracing {
     public static int factorial(int n) {
         printTrace("Entering factorial(" + n + ")");
         
-        if(n <= 1) {
+        if (n <= 1) {
             printTrace("Base case reached (n <= 1)");
             printTrace("Returning 1");
-            depth--; // Adjust depth after return
+            depth--;
             return 1;
         }
         
@@ -30,9 +30,16 @@ public class FactorialTracing {
     }
 
     private static void printTrace(String message) {
-        String indent = "  ".repeat(depth);
+      
+        StringBuilder indentBuilder = new StringBuilder();
+        for (int i = 0; i < depth; i++) {
+            indentBuilder.append("  ");
+        }
+        String indent = indentBuilder.toString();
+        
         System.out.println(indent + message);
-        if(!message.startsWith("Returning") && !message.contains("Base")) {
+        
+        if (!message.startsWith("Returning") && !message.contains("Base")) {
             depth++;
         }
     }

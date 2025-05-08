@@ -22,7 +22,7 @@ public class InsertionSort {
             }
             list.set(j+1, key);
             
-            System.out.println("Step " + i + ": Insert " + key + " → " + list);
+            System.out.println("Step " + i + ": Insert " + key + " -> " + list);
         }
     }
 }

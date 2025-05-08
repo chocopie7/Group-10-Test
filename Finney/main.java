@@ -19,12 +19,14 @@ public class main {
 
         // 3.1 & 3.6: Equivalent Boolean expressions for even check
         // 3.1 Boolean expression with simple if/else
+        //!(number % 2 != 0)
         if (number % 2 == 0) {
             System.out.println("even");
         } else {
             System.out.println("odd");
         }
         // 3.5: Compound Boolean expression
+        
         if (number != 0 && number % 5 == 0) {
             System.out.println("Divisible by 5");
         }

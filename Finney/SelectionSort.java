@@ -23,7 +23,7 @@ public class SelectionSort {
             list.set(i, list.get(minIndex));
             list.set(minIndex, temp);
             
-            System.out.println("Step " + (i+1) + ": Swap " + temp + " ↔ " + list.get(i) + " → " + list);
+            System.out.println("Step " + (i+1) + ": Swap " + temp + " <-> " + list.get(i) + " -> " + list);
         }
     }
 }

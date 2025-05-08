@@ -1,54 +1,80 @@
 package Finney;
 
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import java.util.Arrays;
+import java.util.List;
 
 public class MergeSort {
     public static void main(String[] args) {
-        ArrayList<Integer> numbers = new ArrayList<>();
-        Random rand = new Random();
+        List<Integer> numbers = new ArrayList<>(Arrays.asList(
+            3, 7, 14, 7, 13, 2, 16, 13, 15, 2
+        ));
         
-        // Generate 10 random numbers between 1-20
-        for(int i=0; i<10; i++) {
-            numbers.add(rand.nextInt(20) + 1);
-        }
+        System.out.println("Original array: " + numbers);
         
-        System.out.println("Original: " + numbers);
-        mergeSort(numbers);
+        // Phase 1: Complete all splits first
+        List<List<Integer>> splitQueue = new ArrayList<>();
+        splitQueue.add(numbers);
+        performAllSplits(splitQueue);
+
+        // Show final split array
+        System.out.println("\n=== Final Split Array ===");
+        System.out.println(splitQueue);
+
+        // Phase 2: Perform all merges
+        performAllMerges(splitQueue);
+        
+        System.out.println("\nFinal sorted array: " + splitQueue.get(0));
     }
 
-    public static void mergeSort(ArrayList<Integer> list) {
-        if(list.size() < 2) return;
+    // Split phase (all splits happen first)
+    private static void performAllSplits(List<List<Integer>> queue) {
+        System.out.println("\n=== Splitting Phase ===");
+        boolean needsSplitting = true;
         
-        int mid = list.size()/2;
-        ArrayList<Integer> left = new ArrayList<>(list.subList(0, mid));
-        ArrayList<Integer> right = new ArrayList<>(list.subList(mid, list.size()));
-        
-        System.out.println(left + " " + right); // Split step
-        
-        mergeSort(left);
-        mergeSort(right);
-        merge(list, left, right);
-        
-        System.out.println(list); // Merged result
-    }
-
-    private static void merge(ArrayList<Integer> result, 
-                            ArrayList<Integer> left, 
-                            ArrayList<Integer> right) {
-        int i=0, j=0, k=0;
-        
-        while(i < left.size() && j < right.size()) {
-            if(left.get(i) < right.get(j)) {
-                result.set(k++, left.get(i++));
-            } else {
-                result.set(k++, right.get(j++));
+        while (needsSplitting) {
+            needsSplitting = false;
+            int initialSize = queue.size();
+            
+            for (int i = 0; i < initialSize; i++) {
+                List<Integer> current = queue.remove(0);
+                if (current.size() > 1) {
+                    int mid = current.size() / 2;
+                    List<Integer> left = new ArrayList<>(current.subList(0, mid));
+                    List<Integer> right = new ArrayList<>(current.subList(mid, current.size()));
+                    
+                    System.out.println("Split: " + current + " -> " + left + " | " + right);
+                    queue.add(left);
+                    queue.add(right);
+                    needsSplitting = true;
+                } else {
+                    queue.add(current);
+                }
             }
         }
-        
-        while(i < left.size()) result.set(k++, left.get(i++));
-        while(j < right.size()) result.set(k++, right.get(j++));
+    }
+
+    // Merge phase (all merges happen after)
+    private static void performAllMerges(List<List<Integer>> queue) {
+        System.out.println("\n=== Merging Phase ===");
+        while (queue.size() > 1) {
+            List<Integer> left = queue.remove(0);
+            List<Integer> right = queue.remove(0);
+            List<Integer> merged = new ArrayList<>();
+            
+            int i = 0, j = 0;
+            while (i < left.size() && j < right.size()) {
+                if (left.get(i) <= right.get(j)) {
+                    merged.add(left.get(i++));
+                } else {
+                    merged.add(right.get(j++));
+                }
+            }
+            while (i < left.size()) merged.add(left.get(i++));
+            while (j < right.size()) merged.add(right.get(j++));
+            
+            System.out.println("Merge: " + left + " + " + right + " -> " + merged);
+            queue.add(merged);
+        }
     }
 }
